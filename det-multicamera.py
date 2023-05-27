@@ -78,8 +78,10 @@ class detectEngine:
 				self.out_send.write(draw)
 
 	def __del__(self):
-		self.out_send.release()
-		self.cap_send.release()
+		if self.out_send != None:
+			self.out_send.release()
+		if self.cap_send != None:
+			self.cap_send.release()
 			
 			
 			
