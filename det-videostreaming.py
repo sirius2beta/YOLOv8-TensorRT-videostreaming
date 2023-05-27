@@ -31,17 +31,17 @@ def main():
         exit(0)
     if not out_send.isOpened():
         print('VideoWriter not opened')
-        exit(0)
-    while True:
+	exit(0)
+	while True:
         ret,frame = cap_send.read()
         if not ret:
             print('empty frame')
             break
         draw = frame.copy()
         frame, ratio, dwdh = letterbox(frame, (W, H))
-	rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-	tensor = blob(rgb, return_seg=False)
-	dwdh = torch.asarray(dwdh * 2, dtype=torch.float32, device=device)
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        tensor = blob(rgb, return_seg=False)
+        dwdh = torch.asarray(dwdh * 2, dtype=torch.float32, device=device)
         tensor = torch.asarray(tensor, device=device)
         # inference
         data = Engine(tensor)
@@ -60,7 +60,7 @@ def main():
                         f'{cls}:{score:.3f}', (bbox[0], bbox[1] - 2),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.75, [225, 255, 255], thickness=2)
-		if out_send.isOpened():
+        if out_send.isOpened():
             out_send.write(draw)
         if cv2.waitKey(1)&0xFF == ord('q'):
             break
