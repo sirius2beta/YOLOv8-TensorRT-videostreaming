@@ -39,8 +39,8 @@ def main():
             break
         draw = frame.copy()
         frame, ratio, dwdh = letterbox(frame, (W, H))
-        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        tensor = blob(rgb, return_seg=False)
+	rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+	tensor = blob(rgb, return_seg=False)
 	dwdh = torch.asarray(dwdh * 2, dtype=torch.float32, device=device)
         tensor = torch.asarray(tensor, device=device)
         # inference
