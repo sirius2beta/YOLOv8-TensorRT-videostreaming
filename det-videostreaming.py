@@ -1,3 +1,5 @@
+from models import TRTModule  # isort:skip
+import argparse
 from pathlib import Path
 
 import cv2
