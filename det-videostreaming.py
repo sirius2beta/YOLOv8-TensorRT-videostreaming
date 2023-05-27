@@ -25,7 +25,7 @@ def main():
 	w = cap_send.get(cv2.CAP_PROP_FRAME_WIDTH)
 	h = cap_send.get(cv2.CAP_PROP_FRAME_HEIGHT)
 	fps = cap_send.get(cv2.CAP_PROP_FPS)
-	out_send = cv2.VideoWriter(output_pipeline\
+	out_send = cv2.VideoWriter(out_pipeline\
 			,cv2.CAP_GSTREAMER\
 			,0\
 			, int(fps)\
