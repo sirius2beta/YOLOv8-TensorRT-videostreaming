@@ -18,6 +18,7 @@ class detectEngine:
 		self.out_send = None
 		self.detectThread = threading.Thread(target = self.detectLoop)
 		self.detectThread.start()
+		self.stopEvent = threading.Event()
 		
 		#initialize engine
 		self.device = torch.device('cuda:0')
@@ -25,8 +26,9 @@ class detectEngine:
 		self.H, self.W = self.Engine.inp_info[0].shape[-2:]
 		self.Engine.set_desired(['num_dets', 'bboxes', 'scores', 'labels'])
 	def setPipeline(self, in_pipeline, out_pipeline):
-		
-		self.detectThread.stop()
+		self.run = False
+		self.stopEvent.wait()
+		self.stopEvent.clear()
 		self._in_pipeline = in_pipeline
 		self._out_pipeline = out_pipeline
 		self.detectLoop();
@@ -50,8 +52,11 @@ class detectEngine:
 		self.detectThread.start()
 	def detectLoop(self):
 		while True:
+			
 			if self.run == False:
 				continue
+			else:
+				stopEvent.clear()
 			ret,frame = self.cap_send.read()
 			if not ret:
 				print('empty frame')
@@ -81,6 +86,7 @@ class detectEngine:
 							0.75, [225, 255, 255], thickness=2)
 			if self.out_send.isOpened():
 				self.out_send.write(draw)
+			stopEvent.set()
 
 	def __del__(self):
 		if self.out_send != None:
