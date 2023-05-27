@@ -30,9 +30,9 @@ class detectEngine:
 		self._out_pipeline = out_pipeline
 		self.detectLoop();
 		self.cap_send = cv2.VideoCapture(self._in_pipeline, cv2.CAP_GSTREAMER)
-		w = cap_send.get(cv2.CAP_PROP_FRAME_WIDTH)
-		h = cap_send.get(cv2.CAP_PROP_FRAME_HEIGHT)
-		fps = cap_send.get(cv2.CAP_PROP_FPS)
+		w = self.cap_send.get(cv2.CAP_PROP_FRAME_WIDTH)
+		h = self.cap_send.get(cv2.CAP_PROP_FRAME_HEIGHT)
+		fps = self.cap_send.get(cv2.CAP_PROP_FPS)
 		self.out_send = cv2.VideoWriter(self.out_pipeline\
 				,cv2.CAP_GSTREAMER\
 				,0\
