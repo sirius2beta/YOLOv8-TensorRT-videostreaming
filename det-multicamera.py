@@ -56,7 +56,7 @@ class detectEngine:
 			if self.run == False:
 				continue
 			else:
-				stopEvent.clear()
+				self.stopEvent.clear()
 			ret,frame = self.cap_send.read()
 			if not ret:
 				print('empty frame')
@@ -86,7 +86,7 @@ class detectEngine:
 							0.75, [225, 255, 255], thickness=2)
 			if self.out_send.isOpened():
 				self.out_send.write(draw)
-			stopEvent.set()
+			self.stopEvent.set()
 
 	def __del__(self):
 		if self.out_send != None:
