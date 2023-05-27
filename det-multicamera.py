@@ -29,7 +29,7 @@ class detectEngine:
 		self._in_pipeline = in_pipeline
 		self._out_pipeline = out_pipeline
 		self.detectLoop();
-		self.cap_send = cv2.VideoCapture(self.cap_pipeline, cv2.CAP_GSTREAMER)
+		self.cap_send = cv2.VideoCapture(self._in_pipeline, cv2.CAP_GSTREAMER)
 		w = cap_send.get(cv2.CAP_PROP_FRAME_WIDTH)
 		h = cap_send.get(cv2.CAP_PROP_FRAME_HEIGHT)
 		fps = cap_send.get(cv2.CAP_PROP_FPS)
@@ -90,12 +90,12 @@ class detectEngine:
 def main():
 	
 	
-	cap_pipeline = 'v4l2src device=/dev/video0 ! video/x-raw, format=YUY2, width=640, height=480, framerate=30/1 !\
+	_in_pipeline = 'v4l2src device=/dev/video0 ! video/x-raw, format=YUY2, width=640, height=480, framerate=30/1 !\
 						videoconvert ! appsink'
 	out_pipeline = 'appsrc ! videoconvert ! video/x-raw,format=I420 ! nvvideoconvert ! video/x-raw(memory:NVMM) ! nvv4l2h264enc !\
 						rtph264pay pt=96 config-interval=1 ! udpsink host=100.117.209.85 port=5201'
 	detectengine = detectEngine()
-	detectengine.setPipeline(cap_pipeline, out_pipeline)
+	detectengine.setPipeline(_in_pipeline, out_pipeline)
 	detectengine.detect()
 
 if __name__ == '__main__':
