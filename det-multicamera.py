@@ -20,7 +20,7 @@ class detectEngine:
 		
 		#initialize engine
 		self.device = torch.device('cuda:0')
-		self.Engine = TRTModule('yolov8s.engine', device)
+		self.Engine = TRTModule('yolov8s.engine', self.device)
 		self.H, self.W = Engine.inp_info[0].shape[-2:]
 		self.Engine.set_desired(['num_dets', 'bboxes', 'scores', 'labels'])
 	def setPipeline(self, in_pipeline, out_pipeline):
@@ -55,8 +55,8 @@ class detectEngine:
 			frame, ratio, dwdh = letterbox(frame, (self.W, self.H))
 			rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 			tensor = blob(rgb, return_seg=False)
-			dwdh = torch.asarray(dwdh * 2, dtype=torch.float32, device=device)
-			tensor = torch.asarray(tensor, device=device)
+			dwdh = torch.asarray(dwdh * 2, dtype=torch.float32, device=self.device)
+			tensor = torch.asarray(tensor, device=self.device)
 			# inference
 			data = self.Engine(tensor)
 
