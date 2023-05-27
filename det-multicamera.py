@@ -110,9 +110,9 @@ def main():
 	out_pipeline2 = 'appsrc ! videoconvert ! video/x-raw,format=I420 ! nvvideoconvert ! video/x-raw(memory:NVMM) ! nvv4l2h264enc !\
 						rtph264pay pt=96 config-interval=1 ! udpsink host=100.73.190.7 port=5202'
 	detectengine1 = detectEngine()
-	detectengine2 = detectEngine()
+	#detectengine2 = detectEngine()
 	detectengine1.setPipeline(in_pipeline1, out_pipeline1)
-	detectengine2.setPipeline(in_pipeline2, out_pipeline2)
+	#detectengine2.setPipeline(in_pipeline2, out_pipeline2)
 
 if __name__ == '__main__':
 	main()
