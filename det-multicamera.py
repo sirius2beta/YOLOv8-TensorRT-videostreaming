@@ -14,6 +14,8 @@ class detectEngine:
 		self.run = False
 		self._in_pipeline = ''
 		self._out_pipeline = ''
+		self.cap_send = None
+		self.out_send = None
 		self.detectThread = threading.Thread(target = self.detectLoop)
 		
 		#initialize engine
