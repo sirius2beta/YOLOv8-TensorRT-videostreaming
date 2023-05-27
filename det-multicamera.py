@@ -32,7 +32,6 @@ class detectEngine:
 			self.stopEvent.clear()
 		self._in_pipeline = in_pipeline
 		self._out_pipeline = out_pipeline
-		self.detectLoop();
 		self.cap_send = cv2.VideoCapture(self._in_pipeline, cv2.CAP_GSTREAMER)
 		w = self.cap_send.get(cv2.CAP_PROP_FRAME_WIDTH)
 		h = self.cap_send.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -50,7 +49,7 @@ class detectEngine:
 			print('VideoWriter not opened')
 			exit(0)
 		self.run = True
-		self.detectThread.start()
+		print("set run true")
 	def detectLoop(self):
 		while True:
 			
