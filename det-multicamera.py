@@ -26,9 +26,10 @@ class detectEngine:
 		self.H, self.W = self.Engine.inp_info[0].shape[-2:]
 		self.Engine.set_desired(['num_dets', 'bboxes', 'scores', 'labels'])
 	def setPipeline(self, in_pipeline, out_pipeline):
-		self.run = False
-		self.stopEvent.wait()
-		self.stopEvent.clear()
+		if self.run == True:
+			self.run = False
+			self.stopEvent.wait()
+			self.stopEvent.clear()
 		self._in_pipeline = in_pipeline
 		self._out_pipeline = out_pipeline
 		self.detectLoop();
