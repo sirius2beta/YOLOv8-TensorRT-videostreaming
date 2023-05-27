@@ -17,6 +17,7 @@ class detectEngine:
 		self.cap_send = None
 		self.out_send = None
 		self.detectThread = threading.Thread(target = self.detectLoop)
+		self.detectThread.start()
 		
 		#initialize engine
 		self.device = torch.device('cuda:0')
@@ -24,8 +25,8 @@ class detectEngine:
 		self.H, self.W = self.Engine.inp_info[0].shape[-2:]
 		self.Engine.set_desired(['num_dets', 'bboxes', 'scores', 'labels'])
 	def setPipeline(self, in_pipeline, out_pipeline):
-		if self.run == True:
-			self.run = False
+		
+		self.detectThread.stop()
 		self._in_pipeline = in_pipeline
 		self._out_pipeline = out_pipeline
 		self.detectLoop();
@@ -46,8 +47,11 @@ class detectEngine:
 			print('VideoWriter not opened')
 			exit(0)
 		self.run = True
+		self.detectThread.start()
 	def detectLoop(self):
-		while self.run == True:
+		while True:
+			if self.run == False:
+				continue
 			ret,frame = self.cap_send.read()
 			if not ret:
 				print('empty frame')
