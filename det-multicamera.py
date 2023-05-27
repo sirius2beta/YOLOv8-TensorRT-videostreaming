@@ -101,7 +101,7 @@ class detectEngine:
 def main():
 	
 	
-	in_pipeline1 = 'v4l2src device=/dev/video0 ! video/x-raw, format=YUY2, width=640, height=480, framerate=30/1 !\
+	in_pipeline1 = 'videotestsrc ! video/x-raw, format=YUY2, width=640, height=480, framerate=30/1 !\
 						videoconvert ! appsink'
 	out_pipeline1 = 'appsrc ! videoconvert ! video/x-raw,format=I420 ! nvvideoconvert ! video/x-raw(memory:NVMM) ! nvv4l2h264enc !\
 						rtph264pay pt=96 config-interval=1 ! udpsink host=100.73.190.7 port=5201'
