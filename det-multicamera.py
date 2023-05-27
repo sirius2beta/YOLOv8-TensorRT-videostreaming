@@ -46,7 +46,7 @@ class detectEngine:
 			print('VideoWriter not opened')
 			exit(0)
 		self.run = True
-	def start(self):
+	def detectLoop(self):
 		while self.run == True:
 			ret,frame = self.cap_send.read()
 			if not ret:
@@ -97,7 +97,6 @@ def main():
 						rtph264pay pt=96 config-interval=1 ! udpsink host=100.117.209.85 port=5201'
 	detectengine = detectEngine()
 	detectengine.setPipeline(_in_pipeline, out_pipeline)
-	detectengine.start()
 
 if __name__ == '__main__':
 	main()
