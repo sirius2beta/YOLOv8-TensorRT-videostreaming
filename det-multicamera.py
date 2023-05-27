@@ -21,7 +21,7 @@ class detectEngine:
 		#initialize engine
 		self.device = torch.device('cuda:0')
 		self.Engine = TRTModule('yolov8s.engine', self.device)
-		self.H, self.W = Engine.inp_info[0].shape[-2:]
+		self.H, self.W = self.Engine.inp_info[0].shape[-2:]
 		self.Engine.set_desired(['num_dets', 'bboxes', 'scores', 'labels'])
 	def setPipeline(self, in_pipeline, out_pipeline):
 		if self.run == True:
