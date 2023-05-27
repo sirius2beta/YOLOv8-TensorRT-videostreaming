@@ -33,7 +33,7 @@ class detectEngine:
 		w = self.cap_send.get(cv2.CAP_PROP_FRAME_WIDTH)
 		h = self.cap_send.get(cv2.CAP_PROP_FRAME_HEIGHT)
 		fps = self.cap_send.get(cv2.CAP_PROP_FPS)
-		self.out_send = cv2.VideoWriter(self.out_pipeline\
+		self.out_send = cv2.VideoWriter(self._out_pipeline\
 				,cv2.CAP_GSTREAMER\
 				,0\
 				, int(fps)\
